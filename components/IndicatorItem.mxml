@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="incorrect" />
+		<s:State name="correct" />
+	</s:states>
+	
+	<s:transitions>
+		<s:Transition fromState="unanswered" toState="correct">
+			<s:Fade target="{correctIcon}"/>
+		</s:Transition>
+		<s:Transition fromState="unanswered" toState="incorrect">
+			<s:Fade target="{incorrectIcon}"/>
+		</s:Transition>
+	</s:transitions>
+	
+	<!-- blank -->	
+	<s:Group id="noAnswer" />
+	
+	<!-- correct indicator -->	
+	<s:Group id="correctIcon" x="0" y="4" scaleX=".8" scaleY=".8" includeIn="correct">
+		<s:Path data="M 16.669 4.315 L 15.406 0.06 C 15.397 0.03 15.372 0.007 15.341 0.001 C 15.31 -0.004 15.279 0.007 
+				15.259 0.032 L 7.569 9.628 L 4.809 6.189 C 4.793 6.168 4.769 6.157 4.743 6.157 L 0.084 6.157 C 0.052 6.157 0.022 
+				6.176 0.008 6.206 C -0.006 6.235 -0.001 6.269 0.019 6.294 L 7.496 15.631 C 7.512 15.652 7.536 15.664 7.562 15.664 
+				C 7.588 15.664 7.612 15.652 7.628 15.631 L 16.654 4.392 C 16.672 4.371 16.677 4.342 16.669 4.315 Z">
+			<s:stroke>
+				<s:SolidColorStroke color="0xffffff" alpha=".7"/>
+			</s:stroke>
+			<s:fill>
+				<s:LinearGradient rotation="90" scaleX="20" x="8.336" y="-7.283">
+					<s:GradientEntry color="#D4D73A" ratio="0"/>
+					<s:GradientEntry color="#B7CC2F" ratio="0.348315"/>
+					<s:GradientEntry color="#b3e44c" ratio="0.629214"/>
+					<s:GradientEntry color="#637E2A" ratio="0.977528"/>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Path>
+	</s:Group>
+	
+	<!-- incorrect indicator -->	
+	<s:Group id="incorrectIcon" x="0" y="7" scaleX=".8" scaleY=".8" includeIn="incorrect">
+		<s:Path data="M 16.333 13.809 L 10.949 6.872 L 16.267 0.137 C 16.287 0.111 16.291 0.076 16.277 0.047 
+				C 16.263 0.019 16.234 0 16.201 0 L 11.124 0 C 11.096 0 11.071 0.013 11.055 0.035 L 8.22 3.975 
+				L 5.396 0.035 C 5.381 0.013 5.355 0 5.328 0 L 0.166 0 C 0.134 0 0.105 0.019 0.09 0.047 C 0.076 0.076 0.08 0.111 0.1 0.137 
+				L 5.41 6.962 L 0.018 13.809 C -0.002 13.834 -0.006 13.868 0.008 13.898 C 0.023 13.927 0.052 13.945 0.085 13.945 
+				L 5.147 13.945 C 5.173 13.945 5.199 13.933 5.215 13.911 L 8.162 9.887 L 11.036 13.91 C 11.052 13.933 11.078 13.945 11.105 13.945 
+				L 16.266 13.945 C 16.299 13.945 16.328 13.928 16.342 13.898 C 16.357 13.869 16.353 13.835 16.333 13.809 Z">
+			<s:stroke>
+				<s:SolidColorStroke color="0xffffff" alpha=".3"/>
+			</s:stroke>
+			<s:fill>
+				<s:LinearGradient rotation="90" scaleX="35.9718" x="8.175" y="-4.988">
+					<s:GradientEntry color="#EB412C" ratio="0"/>
+					<s:GradientEntry color="#AD091A" ratio="0.348315"/>
+					<s:GradientEntry color="#790913" ratio="0.629214"/>
+					<s:GradientEntry color="#46050B" ratio="0.938202"/>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Path>
+	</s:Group>
+
+</s:Group>

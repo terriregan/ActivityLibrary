@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		xmlns:components="org.nflc.activities.components.*"
+		xmlns:ui="org.nflc.common.*"
+		left="0" top="0" right="0" bottom="0" 
+		creationComplete="setItemBankyPos()" 
+		removedFromStage="dispose();">
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("org.nflc.activities.view.Activity")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import org.nflc.activities.model.ActivityConstants;
+			import org.nflc.activities.model.ConfigurationManager;
+			import org.nflc.managers.AccessibilityManager;
+			
+			private var tabbedItems:Array;
+			
+			private function setItemBankyPos():void
+			{
+				if( richPrompt.textFlow != null )
+					itemBank.y = richPrompt.y + richPrompt.height + hostComponent.itemBankYGap;
+				else
+					itemBank.y = richPrompt.y + hostComponent.itemBankYGap;
+			}
+			
+			private function initializeTabIndexes():void
+			{
+				tabbedItems =  [ title,
+					activityUIButton,
+					instructionsLabel,
+					standardInstructions,
+					richPrompt
+				];
+				
+				AccessibilityManager.getInstance().addDisplayObjects( tabbedItems, AccessibilityManager.CONTENT );
+				if( this.currentState == "normal" )
+					AccessibilityManager.getInstance().addDisplayObjects( [checkButton], AccessibilityManager.CONTENT, 
+						AccessibilityManager.getInstance().numContentItems );
+			}
+			
+			private function dispose():void
+			{
+				AccessibilityManager.getInstance().removeDisplayObjects( tabbedItems, AccessibilityManager.CONTENT );
+				if( this.currentState == "normal" )
+					AccessibilityManager.getInstance().removeDisplayObjects( [checkButton], AccessibilityManager.CONTENT );
+			}
+		]]>
+	</fx:Script>
+		
+	<s:layout>
+	    <s:BasicLayout />
+	 </s:layout>
+	
+	<!-- 
+		TODO-FIX Current layout will "run over" the check button since is it absolute.  May need to add scroll bars 
+		 In additon, there is a layout bug somewhere that is forcing the widht outside its container...had to put a
+		 mask on the animtion view
+	-->
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="excludeButtons" />
+	</s:states>
+
+	<!-- activity title and UI instructions icon -->
+	<s:Group width="100%">
+		<ui:FocusableLabel id="title" 
+					styleName="screenTitle"  
+					/>
+		
+		<s:Button id="activityUIButton" 
+				  styleName="activityUIButton" 
+				  left="665" 
+				  buttonMode="true"
+				  click="hostComponent.showUIInstructions( event );"
+				  />
+	
+	</s:Group>
+	
+	<!-- instructions label -->
+	<ui:FocusableLabel id="instructionsLabel" 
+				text="Instructions" 
+				styleName="activityInstructionsLabel"
+				top="{title.height + 15}"
+				width="100%" 
+				/>
+	
+	<!-- standard instructions - are the same for each activity type -->
+	<ui:FocusableText id="standardInstructions" 
+				styleName="activityStandardInstructions"
+				top="{instructionsLabel.y + 12}"
+				width="100%" 
+				/>
+
+	<!-- question stim -->
+	<ui:FocusableRichText id="richPrompt" 
+			 top="{standardInstructions.y + standardInstructions.height + 15}" 
+			 width="100%" 
+			 textFlow="{hostComponent.prompt}"
+			 />
+	
+	<!-- contains additonal prompt components -->
+	<s:Group id="promptComponent"  />
+	
+	<!-- contains choice items - is customized for each item type -->
+	<s:Group id="itemBank" 
+			  width="{ActivityConstants.ITEM_BANK_WIDTH}">
+		<s:layout>
+			<s:VerticalLayout gap="10" />
+		</s:layout>
+	</s:Group>
+			  	
+	<s:Group id="buttonBar" 
+			 bottom="0" 
+			 excludeFrom="excludeButtons">
+		<s:layout>
+			<s:HorizontalLayout gap="5" />
+		</s:layout>
+		
+		<components:CheckButtonItem 
+			id="checkButton" 
+			accessibilityName="Check answer"
+			itemState="{hostComponent.answerState}"
+			/>
+		<!--<s:Button id="restButton" click.normal="hostComponent.reset();" />-->
+	</s:Group>
+	
+</s:Skin>
