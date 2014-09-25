@@ -8,8 +8,5 @@ The ActivityLibrary was used in the [Video Learning Object](http://terriregan.he
 - store display state 
 - properly handle the layout of various languages.
 
-### Role
-I was the lead developer.  All code is mine.
-
 ### Technologies 
 Flex, Actionscript 3, JavaScript, UI Design, LMS/SCORM, XML
